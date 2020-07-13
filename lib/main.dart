@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:peas/AppStateNotifier.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(
@@ -15,6 +16,8 @@ class PeAs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<AppStateNotifier>(builder: (context, appState, child) {
+      SystemChrome.setEnabledSystemUIOverlays(
+          [SystemUiOverlay.bottom]); //Hides Android status bar
       return MaterialApp(
           title: 'PeAs',
           debugShowCheckedModeBanner: false,
@@ -38,13 +41,28 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Switch(
-        value: Provider.of<AppStateNotifier>(context).isDarkMode,
-        onChanged: (boolVal) {
-          Provider.of<AppStateNotifier>(context, listen: false)
-              .updateTheme(boolVal);
-        },
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        title: Text(
+          "APP BAR TEXT",
+          style: Theme.of(context).textTheme.headline6,
+        ),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
+      body: Stack(
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.fromLTRB(40, 70, 0, 0),
+            child: Switch(
+              value: Provider.of<AppStateNotifier>(context).isDarkMode,
+              onChanged: (boolVal) {
+                Provider.of<AppStateNotifier>(context, listen: false)
+                    .updateTheme(boolVal);
+              },
+            ),
+          )
+        ],
       ),
     );
   }
