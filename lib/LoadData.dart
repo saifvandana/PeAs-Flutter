@@ -27,11 +27,16 @@ class _LoadData extends State<LoadData> {
   //Getting and parsing happens here
   Future _getData() {
     return Future.delayed(const Duration(seconds: 2), () {
-      //Pass to the next screen the data that has been loaded
-      Navigator.pushReplacementNamed(context, '/list', arguments: {
-        'data':
-            'data that has been loaded and will be used in the next screen goes here',
-      });
+      if (arguments['url'] == "badLink") {
+        Navigator.pushReplacementNamed(context, '/badAssessment');
+      } else {
+        //If link is not expired or sth go here
+        //Pass to the next screen the data that has been loaded
+        Navigator.pushReplacementNamed(context, '/list', arguments: {
+          'data':
+              'data that has been loaded and will be used in the next screen goes here',
+        });
+      }
     });
   }
 }

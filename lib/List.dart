@@ -59,7 +59,7 @@ class _ListState extends State<List> {
                     color: Colors.green,
                     onPressed: () {
                       Navigator.pushNamed(context, "/evaluation",
-                          arguments: {'url': "fdf"});
+                          arguments: {'url': "fdf", 'end': false});
                     },
                     label: Text(
                       "Begin evaluation",

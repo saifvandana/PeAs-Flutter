@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:peas/AppStateNotifier.dart';
+import 'package:peas/BadAssessment.dart';
 import 'package:peas/Evaluation.dart';
 import 'package:provider/provider.dart';
 import 'package:peas/HomePage.dart';
@@ -20,12 +21,13 @@ void main() {
           themeMode: appState.isDarkMode ? ThemeMode.dark : ThemeMode.light,
 
           //App routes
-          initialRoute: '/evaluation',
+          initialRoute: '/badAssessment',
           routes: {
             '/': (context) => HomePage(),
             '/loadData': (context) => LoadData(),
             '/list': (context) => List(),
             '/evaluation': (context) => Evaluation(),
+            '/badAssessment': (context) => BadAssessment(),
           },
         );
       }),
