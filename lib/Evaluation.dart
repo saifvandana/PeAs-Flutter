@@ -91,5 +91,3 @@ class _EvaluationState extends State<Evaluation> {
     ));
   }
 }
-
-//Continue making rating buttons
