@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:peas/AppStateNotifier.dart';
+import 'package:peas/NoInternet.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
@@ -11,6 +12,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    //Check internet connection on startup
+  }
+
   final formKey = GlobalKey<FormState>();
   final String _trueURL = '';
   String _url;
@@ -101,7 +109,17 @@ class _HomePageState extends State<HomePage> {
     if (formKey.currentState.validate()) {
       formKey.currentState.save();
       //The arguments passed here will determine what to load
-      Navigator.pushNamed(context, "/loadData", arguments: {'url': _url});
+      NoInternet.checkConnection().then((value) {
+        if (!value) {
+          Navigator.pushNamed(context, "/noInternet", arguments: {
+            'nextRoute': '/loadData',
+            'goBack': false,
+            'url': _url
+          });
+        } else {
+          Navigator.pushNamed(context, "/loadData", arguments: {'url': _url});
+        }
+      });
       //Removes focus from the textformfield on return to home route
       FocusScope.of(context).unfocus();
     }

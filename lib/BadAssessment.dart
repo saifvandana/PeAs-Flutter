@@ -8,11 +8,13 @@ class BadAssessment extends StatefulWidget {
 class _BadAssessmentState extends State<BadAssessment> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Bad assessment'),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Bad assessment'),
+        ),
+        body: Text("Bad assessment: expired or not yet started"),
       ),
-      body: Text("Bad assessment: expired or not yet started"),
     );
   }
 }

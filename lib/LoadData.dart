@@ -7,6 +7,7 @@ class LoadData extends StatefulWidget {
 }
 
 class _LoadData extends State<LoadData> {
+  //Check for network connectivity before anything
   Map arguments = {};
 
   @override
