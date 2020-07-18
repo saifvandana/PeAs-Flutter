@@ -3,6 +3,10 @@ import 'package:peas/AppStateNotifier.dart';
 import 'package:peas/NoInternet.dart';
 import 'package:provider/provider.dart';
 
+/*
+  Main page of the app
+  Displays logo, theme switch, and URL input box
+*/
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
   final String title;
@@ -14,19 +18,22 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    //Check internet connection on startup
+    /* 
+    TODO: Check internet connection on startup
+    and push NoInternet with back, no redirect
+    */
   }
 
+  //Form key to handle link input
   final formKey = GlobalKey<FormState>();
+  //Correct URL used to validate input URL
   final String _trueURL = '';
+  //User's input URL
   String _url;
 
   @override
   Widget build(BuildContext context) {
-    //Wrapping in safe area ensures nothing is covered by notches
-    //or other phone specific physical features
     return SafeArea(
         child: Scaffold(
       extendBodyBehindAppBar: true,
@@ -51,7 +58,7 @@ class _HomePageState extends State<HomePage> {
                     Switch(
                       value: Provider.of<AppStateNotifier>(context).isDarkMode,
                       onChanged: (boolVal) {
-                        Provider.of<AppStateNotifier>(context, listen: false)
+                        Provider.of<AppStateNotifier>(context)
                             .updateTheme(boolVal);
                       },
                     ),

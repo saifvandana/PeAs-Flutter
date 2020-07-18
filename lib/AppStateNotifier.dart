@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppStateNotifier extends ChangeNotifier {
-  //
-  bool isDarkMode = false;
+  bool isDarkMode;
 
-  AppStateNotifier() {
-    this.getIsDarkMode().then((value) {
+  AppStateNotifier(bool isDarkonStart) {
+    this.isDarkMode = isDarkonStart;
+    getIsDarkMode().then((value) {
       this.isDarkMode = value;
       notifyListeners();
     });
@@ -18,9 +18,7 @@ class AppStateNotifier extends ChangeNotifier {
     setIsDarkMode(isDarkMode);
   }
 
-  /// ------------------------------------------------------------
-  /// Method that returns the user decision to allow notifications
-  /// ------------------------------------------------------------
+  //Method that returns the user decision to allow notifications
   Future<bool> getIsDarkMode() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final result = prefs.getBool('isDarkMode');
@@ -30,12 +28,9 @@ class AppStateNotifier extends ChangeNotifier {
     return result;
   }
 
-  /// ----------------------------------------------------------
-  /// Method that saves the user decision to allow notifications
-  /// ----------------------------------------------------------
+  //Method that saves the user decision to allow notifications
   Future<bool> setIsDarkMode(bool value) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-
     return prefs.setBool('isDarkMode', value);
   }
 }
