@@ -10,17 +10,18 @@ import 'package:peas/List.dart';
 
 void main() {
   runApp(
+    //Change notifier to apply app-wide changes to the theme
     ChangeNotifierProvider<AppStateNotifier>(
-      create: (context) => AppStateNotifier(),
+      create: (context) => AppStateNotifier(false),
       child: Consumer<AppStateNotifier>(builder: (context, appState, child) {
         return MaterialApp(
-          //To set the whole app's theme
+          //Title of the app
           title: 'PeAs',
           debugShowCheckedModeBanner: false,
           theme: ThemeData.light(),
           darkTheme: ThemeData.dark(),
+          //Sets the app theme based on saved user preference
           themeMode: appState.isDarkMode ? ThemeMode.dark : ThemeMode.light,
-
           //App routes
           routes: {
             '/': (context) => HomePage(),
