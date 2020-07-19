@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:peas/AppStateNotifier.dart';
 import 'package:peas/NoInternet.dart';
 import 'package:provider/provider.dart';
+import 'package:peas/style.dart';
 
 /*
   Main page of the app
@@ -34,77 +35,40 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    //SafeArea to be independent of device display differences
     return SafeArea(
+        //Scaffold necessary as Material ancestor to Switch
         child: Scaffold(
-      extendBodyBehindAppBar: true,
       body: Column(
-        children: <Widget>[
-          Flexible(
-              flex: 2,
-              child: Padding(
-                padding: EdgeInsets.only(top: 10),
-                child: Row(
-                  //Logo and dark mode switch
-                  children: <Widget>[
-                    Expanded(
-                        flex: 2,
-                        child: Container(
-                          child: Image.asset(
-                            "assets/logo.png",
-                            fit: BoxFit.cover,
-                          ),
-                        )),
-                    Spacer(flex: 1),
-                    Switch(
-                      value: Provider.of<AppStateNotifier>(context).isDarkMode,
-                      onChanged: (boolVal) {
-                        Provider.of<AppStateNotifier>(context)
-                            .updateTheme(boolVal);
-                      },
-                    ),
-                  ],
-                ),
-              )),
-          Flexible(
-              flex: 3,
-              fit: FlexFit.tight,
-              child: Row(
-                //Message above paste box
-                children: <Widget>[
-                  Text(
-                    "Paste the evaluation link and press go!",
-                    style: Theme.of(context).textTheme.headline6,
-                  ),
-                ],
-              )),
-          Flexible(
-              flex: 3,
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Card(
-                      elevation: 2,
-                      child: Form(
-                        key: formKey,
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            hintText: "Paste the link here...",
-                          ),
-                          //input validation condition goes here
-                          validator: (input) => !input.contains(_trueURL)
-                              ? "Not a valid link"
-                              : null,
-                          onSaved: (input) {
-                            _url = input;
-                          },
-                        ),
-                      ),
-                    ),
-                  ),
-                  IconButton(
-                      icon: Icon(Icons.arrow_forward), onPressed: _submit),
-                ],
-              )),
+        children: [
+          Image.asset(
+            Provider.of<AppStateNotifier>(context).isDarkMode
+                ? Style.darkLogo
+                : Style.lightLogo,
+            fit: BoxFit.cover,
+          ),
+          Switch(
+            value: Provider.of<AppStateNotifier>(context).isDarkMode,
+            onChanged: (boolVal) {
+              Provider.of<AppStateNotifier>(context, listen: false)
+                  .updateTheme(boolVal);
+            },
+          ),
+          Form(
+            key: formKey,
+            child: TextFormField(
+              decoration: InputDecoration(
+                hintText: "Paste the link here...",
+              ),
+              //input validation condition goes here
+              validator: (input) =>
+                  !input.contains(_trueURL) ? "Not a valid link" : null,
+              onSaved: (input) {
+                _url = input;
+              },
+            ),
+          ),
+          IconButton(icon: Icon(Icons.arrow_forward), onPressed: _submit),
         ],
       ),
     ));

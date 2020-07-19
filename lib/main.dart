@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:peas/HomePage.dart';
 import 'package:peas/LoadData.dart';
 import 'package:peas/List.dart';
+import 'package:peas/style.dart';
 
 void main() {
   runApp(
@@ -17,11 +18,18 @@ void main() {
         return MaterialApp(
           //Title of the app
           title: 'PeAs',
+
+          //Removes the debug banner during testing
           debugShowCheckedModeBanner: false,
-          theme: ThemeData.light(),
-          darkTheme: ThemeData.dark(),
-          //Sets the app theme based on saved user preference
+
+          //Defines the light and dark themes to be used in the app
+          //The themes are defined in style.dart
+          theme: Style.lightTheme,
+          darkTheme: Style.darkTheme,
+
+          //Sets the app theme based on saved user preferences
           themeMode: appState.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+
           //App routes
           routes: {
             '/': (context) => HomePage(),
