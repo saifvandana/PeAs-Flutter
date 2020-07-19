@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:peas/AppStateNotifier.dart';
 import 'package:peas/NoInternet.dart';
+import 'package:peas/pe_as_icons_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:peas/style.dart';
+import 'package:day_night_switch/day_night_switch.dart';
 
 /*
   Main page of the app
@@ -21,8 +23,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     /* 
-    TODO: Check internet connection on startup
-    and push NoInternet with back, no redirect
+    TODO: Check internet connection on startup and push NoInternet with back, no redirect
     */
   }
 
@@ -41,34 +42,85 @@ class _HomePageState extends State<HomePage> {
         child: Scaffold(
       body: Column(
         children: [
-          Image.asset(
-            Provider.of<AppStateNotifier>(context).isDarkMode
-                ? Style.darkLogo
-                : Style.lightLogo,
-            fit: BoxFit.cover,
-          ),
-          Switch(
-            value: Provider.of<AppStateNotifier>(context).isDarkMode,
-            onChanged: (boolVal) {
-              Provider.of<AppStateNotifier>(context, listen: false)
-                  .updateTheme(boolVal);
-            },
-          ),
-          Form(
-            key: formKey,
-            child: TextFormField(
-              decoration: InputDecoration(
-                hintText: "Paste the link here...",
+          //TODO: Fix scaling and alignemt of switch
+          //or find alternative widget
+          Container(
+            alignment: Alignment.topRight,
+            padding: EdgeInsets.only(top: 10),
+            child: Transform.scale(
+              scale: 0.4,
+              child: DayNightSwitch(
+                value: Provider.of<AppStateNotifier>(context).isDarkMode,
+                moonImage: AssetImage(Style.darkMoonImage),
+                sunImage: AssetImage(Style.lightSunImage),
+                dayColor: Style.lightDayColor,
+                nightColor: Style.darkNightColor,
+                onChanged: (boolVal) {
+                  Provider.of<AppStateNotifier>(context, listen: false)
+                      .updateTheme(boolVal);
+                },
               ),
-              //input validation condition goes here
-              validator: (input) =>
-                  !input.contains(_trueURL) ? "Not a valid link" : null,
-              onSaved: (input) {
-                _url = input;
-              },
             ),
           ),
-          IconButton(icon: Icon(Icons.arrow_forward), onPressed: _submit),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 10, right: 10),
+              child: Image.asset(
+                Provider.of<AppStateNotifier>(context).isDarkMode
+                    ? Style.darkLogo
+                    : Style.lightLogo,
+              ),
+            ),
+          ),
+
+          //TODO: Set true URL
+          Flexible(
+            fit: FlexFit.loose,
+            child: Container(
+              height: 85,
+              child: Card(
+                shape: RoundedRectangleBorder(),
+                child: Form(
+                  key: formKey,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: TextFormField(
+                          //subtitle1 is used for the URL input box text
+                          style: Theme.of(context).textTheme.subtitle1,
+                          autocorrect: false,
+                          autofocus: false,
+                          autovalidate: false,
+                          keyboardType: TextInputType.url,
+                          maxLines: 1,
+                          decoration: InputDecoration(
+                            prefixIcon: Icon(
+                              PeAsIcons.link,
+                              //Force the use of iconTheme color
+                              color: Theme.of(context).iconTheme.color,
+                            ),
+                            hintText: "Paste the evaluation link here...",
+                            border: InputBorder.none,
+                          ),
+                          //To validate the URL before trying to fetch
+                          validator: (input) => !input.startsWith(_trueURL)
+                              ? "Not a valid evaluation link!"
+                              : null,
+                          onSaved: (input) {
+                            _url = input;
+                          },
+                        ),
+                      ),
+                      //Arrow button to submit the entered URL
+                      IconButton(
+                          icon: Icon(PeAsIcons.right), onPressed: _submit),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     ));
