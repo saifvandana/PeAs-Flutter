@@ -15,31 +15,39 @@ void main() {
     ChangeNotifierProvider<AppStateNotifier>(
       create: (context) => AppStateNotifier(false),
       child: Consumer<AppStateNotifier>(builder: (context, appState, child) {
-        return MaterialApp(
-          //Title of the app
-          title: 'PeAs',
+        //Gesture detector to unfocus from any form field when clicked away from
+        //This behaviour will be there throughout the app
+        return GestureDetector(
+            onTap: () {
+              WidgetsBinding.instance.focusManager.primaryFocus?.unfocus();
+            },
+            child: MaterialApp(
+              //Title of the app
+              title: 'PeAs',
 
-          //Removes the debug banner during testing
-          debugShowCheckedModeBanner: false,
+              //Removes the debug banner during testing
+              debugShowCheckedModeBanner: false,
 
-          //Defines the light and dark themes to be used in the app
-          //The themes are defined in style.dart
-          theme: Style.lightTheme,
-          darkTheme: Style.darkTheme,
+              //Defines the light and dark themes to be used in the app
+              //The themes are defined in style.dart
+              theme: Style.lightTheme,
+              darkTheme: Style.darkTheme,
 
-          //Sets the app theme based on saved user preferences
-          themeMode: appState.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+              //Sets the app theme based on saved user preferences
+              themeMode: appState.isDarkMode ? ThemeMode.dark : ThemeMode.light,
 
-          //App routes
-          routes: {
-            '/': (context) => HomePage(),
-            '/loadData': (context) => LoadData(),
-            '/list': (context) => List(),
-            '/evaluation': (context) => Evaluation(),
-            '/badAssessment': (context) => BadAssessment(),
-            '/noInternet': (context) => NoInternet(),
-          },
-        );
+              //TODO: Hide system status bar in splash screen
+
+              //App routes
+              routes: {
+                '/': (context) => HomePage(),
+                '/loadData': (context) => LoadData(),
+                '/list': (context) => List(),
+                '/evaluation': (context) => Evaluation(),
+                '/badAssessment': (context) => BadAssessment(),
+                '/noInternet': (context) => NoInternet(),
+              },
+            ));
       }),
     ),
   );
