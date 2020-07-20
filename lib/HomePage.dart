@@ -44,6 +44,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           //TODO: Fix scaling and alignemt of switch
           //or find alternative widget
+          //TODO: Fix hold and slide but no theme change issue
           Container(
             alignment: Alignment.topRight,
             padding: EdgeInsets.only(top: 10),
@@ -77,9 +78,15 @@ class _HomePageState extends State<HomePage> {
           Flexible(
             fit: FlexFit.loose,
             child: Container(
+              padding: EdgeInsets.only(left: 10, right: 10),
               height: 85,
               child: Card(
-                shape: RoundedRectangleBorder(),
+                elevation: 3,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(30),
+                  ),
+                ),
                 child: Form(
                   key: formKey,
                   child: Row(
