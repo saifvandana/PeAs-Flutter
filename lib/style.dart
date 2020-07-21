@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 
 //lightTheme constants
 class Style {
-  //static const lightBackgroundColor = Color(0xffffffff);
   static const lightBackgroundColor = Color(0xfffafafa);
   static const lightLogo = "assets/logoLight.png";
   static const lightSunImage = "assets/sun.png";
@@ -13,7 +12,7 @@ class Style {
   static const lightCardColor = Color(0xfff5f5f5);
   static const lightCursorColor = Colors.black;
   static const lightIconColor = Color(0xff0281be);
-  static const lightHintTextColor = Colors.black38;
+  static const lightHintTextColor = Colors.black54;
 
 //darkTheme constants
   static const darkBackgroundColor = Color(0xff121212);
@@ -23,7 +22,7 @@ class Style {
   static const darkCardColor = Color(0xff2e2e2e);
   static const darkCursorColor = Colors.white;
   static const darkIconColor = Color(0xFFffedb9);
-  static const darkHintTextColor = Colors.white38;
+  static const darkHintTextColor = Colors.white60;
 
   static ThemeData lightTheme = ThemeData(
     scaffoldBackgroundColor: lightBackgroundColor,

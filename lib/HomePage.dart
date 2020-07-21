@@ -42,7 +42,7 @@ class _HomePageState extends State<HomePage> {
         child: Scaffold(
       body: Column(
         children: [
-          //TODO: Fix scaling and alignemt of switch
+          //TODO: Fix scaling and alignment of switch
           //or find alternative widget
           //TODO: Fix hold and slide but no theme change issue
           Container(
