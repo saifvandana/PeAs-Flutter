@@ -1,0 +1,6 @@
+#This file defines the splash screen to be configured
+#for each platform natively
+#Plugin is not necessary in final build
+flutter_native_splash:
+  image: assets/splashLogo.png
+  color: "#121212" #Same color as lightTheme background
