@@ -36,8 +36,6 @@ void main() {
               //Sets the app theme based on saved user preferences
               themeMode: appState.isDarkMode ? ThemeMode.dark : ThemeMode.light,
 
-              //TODO: Hide system status bar in splash screen
-
               //App routes
               routes: {
                 '/': (context) => HomePage(),
