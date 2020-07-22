@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
 
   //Form key to handle link input
   final formKey = GlobalKey<FormState>();
-  //Correct URL used to validate input URL
+  //TODO: Correct URL used to validate input URL
   final String _trueURL = '';
   //User's input URL
   String _url;
@@ -48,33 +48,38 @@ class _HomePageState extends State<HomePage> {
           Container(
             alignment: Alignment.topRight,
             padding: EdgeInsets.only(top: 10),
-            child: Transform.scale(
-              scale: 0.4,
-              child: DayNightSwitch(
-                value: Provider.of<AppStateNotifier>(context).isDarkMode,
-                moonImage: AssetImage(Style.darkMoonImage),
-                sunImage: AssetImage(Style.lightSunImage),
-                dayColor: Style.lightDayColor,
-                nightColor: Style.darkNightColor,
-                onChanged: (boolVal) {
-                  Provider.of<AppStateNotifier>(context, listen: false)
-                      .updateTheme(boolVal);
-                },
-              ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10, right: 10),
+                    child: Image.asset(
+                      Provider.of<AppStateNotifier>(context).isDarkMode
+                          ? Style.darkLogo
+                          : Style.lightLogo,
+                    ),
+                  ),
+                ),
+                Spacer(),
+                Transform.scale(
+                  scale: 0.4,
+                  child: DayNightSwitch(
+                    value: Provider.of<AppStateNotifier>(context).isDarkMode,
+                    moonImage: AssetImage(Style.darkMoonImage),
+                    sunImage: AssetImage(Style.lightSunImage),
+                    dayColor: Style.lightDayColor,
+                    nightColor: Style.darkNightColor,
+                    onChanged: (boolVal) {
+                      Provider.of<AppStateNotifier>(context, listen: false)
+                          .updateTheme(boolVal);
+                    },
+                  ),
+                ),
+              ],
             ),
           ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 10, right: 10),
-              child: Image.asset(
-                Provider.of<AppStateNotifier>(context).isDarkMode
-                    ? Style.darkLogo
-                    : Style.lightLogo,
-              ),
-            ),
-          ),
-
-          //TODO: Set true URL
+          Spacer(),
           Flexible(
             fit: FlexFit.loose,
             child: Container(
@@ -137,7 +142,10 @@ class _HomePageState extends State<HomePage> {
   void _submit() {
     //Will check the input fields with validation condition
     if (formKey.currentState.validate()) {
+      //Updates the local url variable if valid
       formKey.currentState.save();
+
+      //Route to go to on submit
       //The arguments passed here will determine what to load
       NoInternet.checkConnection().then((value) {
         if (!value) {
@@ -151,6 +159,7 @@ class _HomePageState extends State<HomePage> {
         }
       });
       //Removes focus from the textformfield on return to home route
+      //TODO: Clear input box on return to home route
       FocusScope.of(context).unfocus();
     }
   }
