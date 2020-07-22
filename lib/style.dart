@@ -13,6 +13,7 @@ class Style {
   static const lightCursorColor = Colors.black;
   static const lightIconColor = Color(0xff0281be);
   static const lightHintTextColor = Colors.black54;
+  static const lightButtonColor = Color(0xfff5b400);
 
 //darkTheme constants
   static const darkBackgroundColor = Color(0xff121212);
@@ -23,6 +24,7 @@ class Style {
   static const darkCursorColor = Colors.white;
   static const darkIconColor = Color(0xFFffedb9);
   static const darkHintTextColor = Colors.white60;
+  static const darkButtonColor = Color(0xFFffedb9);
 
   static ThemeData lightTheme = ThemeData(
     scaffoldBackgroundColor: lightBackgroundColor,
@@ -42,6 +44,11 @@ class Style {
       //subtitle1 is used for the URL input box text
       subtitle1: TextStyle(
         color: Colors.black,
+      ),
+      //Warning message for no internet
+      bodyText1: TextStyle(
+        color: Colors.black,
+        fontWeight: FontWeight.bold,
       ),
     ),
   );
@@ -64,6 +71,11 @@ class Style {
       //subtitle1 is used for the URL input box text
       subtitle1: TextStyle(
         color: Colors.white,
+      ),
+      //Warning message for no internet
+      bodyText1: TextStyle(
+        color: Colors.white,
+        fontWeight: FontWeight.bold,
       ),
     ),
   );

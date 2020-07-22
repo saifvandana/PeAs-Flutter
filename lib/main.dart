@@ -10,10 +10,13 @@ import 'package:peas/List.dart';
 import 'package:peas/style.dart';
 
 void main() {
+  //Loading saved preferences before starting app
+  WidgetsFlutterBinding.ensureInitialized();
+  var appState = AppStateNotifier(false);
   runApp(
     //Change notifier to apply app-wide changes to the theme
     ChangeNotifierProvider<AppStateNotifier>(
-      create: (context) => AppStateNotifier(false),
+      create: (context) => appState,
       child: Consumer<AppStateNotifier>(builder: (context, appState, child) {
         //Gesture detector to unfocus from any form field when clicked away from
         //This behaviour will be there throughout the app
@@ -35,8 +38,6 @@ void main() {
 
               //Sets the app theme based on saved user preferences
               themeMode: appState.isDarkMode ? ThemeMode.dark : ThemeMode.light,
-
-              //TODO: Hide system status bar in splash screen
 
               //App routes
               routes: {
