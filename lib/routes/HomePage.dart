@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:peas/AppStateNotifier.dart';
-import 'package:peas/NoInternet.dart';
+import 'package:peas/routes/NoInternet.dart';
 import 'package:peas/pe_as_icons_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:peas/style.dart';
