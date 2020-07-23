@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:peas/AppStateNotifier.dart';
-import 'package:peas/BadAssessment.dart';
-import 'package:peas/Evaluation.dart';
-import 'package:peas/NoInternet.dart';
+import 'package:peas/routes/BadAssessment.dart';
+import 'package:peas/routes/Evaluation.dart';
+import 'package:peas/routes/NoInternet.dart';
 import 'package:provider/provider.dart';
-import 'package:peas/HomePage.dart';
-import 'package:peas/LoadData.dart';
-import 'package:peas/List.dart';
+import 'package:peas/routes/HomePage.dart';
+import 'package:peas/routes/LoadData.dart';
+import 'package:peas/routes/List.dart';
 import 'package:peas/style.dart';
 
 void main() {
