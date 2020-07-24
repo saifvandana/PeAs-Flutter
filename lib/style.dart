@@ -14,6 +14,7 @@ class Style {
   static const lightIconColor = Color(0xff0281be);
   static const lightHintTextColor = Colors.black54;
   static const lightButtonColor = Color(0xfff5b400);
+  static const lightAccentColor = Color(0xff0281be);
 
 //darkTheme constants
   static const darkBackgroundColor = Color(0xff121212);
@@ -25,8 +26,18 @@ class Style {
   static const darkIconColor = Color(0xFFffedb9);
   static const darkHintTextColor = Colors.white60;
   static const darkButtonColor = Color(0xFFffedb9);
+  static const darkAccentColor = Color(0xFFffedb9);
 
   static ThemeData lightTheme = ThemeData(
+    appBarTheme: AppBarTheme(
+        iconTheme: IconThemeData(
+          color: Colors.black,
+        ),
+        textTheme: TextTheme(
+          headline6: TextStyle(
+            color: Colors.black,
+          ),
+        )),
     scaffoldBackgroundColor: lightBackgroundColor,
     cardTheme: CardTheme(
       color: lightCardColor,
@@ -51,9 +62,19 @@ class Style {
         fontWeight: FontWeight.bold,
       ),
     ),
+    accentColor: lightAccentColor,
   );
 
   static ThemeData darkTheme = ThemeData(
+    appBarTheme: AppBarTheme(
+        iconTheme: IconThemeData(
+          color: Colors.white,
+        ),
+        textTheme: TextTheme(
+          headline6: TextStyle(
+            color: Colors.white,
+          ),
+        )),
     scaffoldBackgroundColor: darkBackgroundColor,
     cardTheme: CardTheme(
       color: darkCardColor,
@@ -78,5 +99,6 @@ class Style {
         fontWeight: FontWeight.bold,
       ),
     ),
+    accentColor: darkAccentColor,
   );
 }

@@ -40,6 +40,7 @@ void main() {
               themeMode: appState.isDarkMode ? ThemeMode.dark : ThemeMode.light,
 
               //App routes
+              initialRoute: '/badAssessment',
               routes: {
                 '/': (context) => HomePage(),
                 '/loadData': (context) => LoadData(),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:peas/handler.dart';
+import 'package:peas/routes/NoInternet.dart';
 
-//Fetching and parsing HTML happens here
 class LoadData extends StatefulWidget {
   @override
   _LoadData createState() => _LoadData();
@@ -13,31 +14,43 @@ class _LoadData extends State<LoadData> {
   @override
   Widget build(BuildContext context) {
     arguments = ModalRoute.of(context).settings.arguments;
-    _getData();
+    if (arguments['action'] == 'start') {
+      _start();
+    }
 
     return SafeArea(
       child: Scaffold(
-          body: Column(
-        children: <Widget>[
-          Text("Loading..."),
-        ],
-      )),
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      ),
     );
   }
 
-  //Getting and parsing happens here
-  Future _getData() {
-    return Future.delayed(const Duration(seconds: 2), () {
-      if (arguments['url'] == "badLink") {
+  void _start() async {
+    var connectionExists = await NoInternet.checkConnection();
+    if (connectionExists == false) {
+      Navigator.pushReplacementNamed(context, "/noInternet", arguments: {
+        'redirect': '/loadData',
+        'redirectArgs': {
+          'url': arguments['url'],
+          'action': 'start',
+        },
+      });
+    } else {
+      var assessor = Handler.getAssessor(arguments['url']);
+      var assessmentInfo = await Handler.getAssessmentInfo(assessor);
+      var isValid = await Handler.checkAssessmentValidity(assessmentInfo);
+      if (isValid == false) {
         Navigator.pushReplacementNamed(context, '/badAssessment');
       } else {
-        //If link is not expired or sth go here
-        //Pass to the next screen the data that has been loaded
+        var peerAssessments = await Handler.getPeerAssessments(assessor);
         Navigator.pushReplacementNamed(context, '/list', arguments: {
-          'data':
-              'data that has been loaded and will be used in the next screen goes here',
+          'assessor': assessor,
+          'assessmentInfo': assessmentInfo,
+          'peerAssessments': peerAssessments,
         });
       }
-    });
+    }
   }
 }
