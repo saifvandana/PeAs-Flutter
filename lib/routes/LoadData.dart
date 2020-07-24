@@ -38,14 +38,17 @@ class _LoadData extends State<LoadData> {
         },
       });
     } else {
-      var assessor = Handler.getAssessor(arguments['url']);
+      var assessor = Handler.getAssessor(
+          'http://139.179.38.78/PeAsF/a.php?q=ckQzSXFvVDdCTy9WYm9nVURxb1lVeGF6eU5YWWZnckw0YS96aXQ0MDZrc3hmbDd4STQzV1k0UGdmVGxnb3dHSldvMXBNMThuOExYWWhBPT0');
+
+      //var assessor = Handler.getAssessor(arguments['url']);
       var assessmentInfo = await Handler.getAssessmentInfo(assessor);
       var isValid = await Handler.checkAssessmentValidity(assessmentInfo);
       if (isValid == false) {
         Navigator.pushReplacementNamed(context, '/badAssessment');
       } else {
         var peerAssessments = await Handler.getPeerAssessments(assessor);
-        Navigator.pushReplacementNamed(context, '/list', arguments: {
+        Navigator.pushReplacementNamed(context, '/listAssessments', arguments: {
           'assessor': assessor,
           'assessmentInfo': assessmentInfo,
           'peerAssessments': peerAssessments,

@@ -15,6 +15,7 @@ class Style {
   static const lightHintTextColor = Colors.black54;
   static const lightButtonColor = Color(0xfff5b400);
   static const lightAccentColor = Color(0xff0281be);
+  static const lightGreenColor = Colors.lightGreen;
 
 //darkTheme constants
   static const darkBackgroundColor = Color(0xff121212);
@@ -27,17 +28,14 @@ class Style {
   static const darkHintTextColor = Colors.white60;
   static const darkButtonColor = Color(0xFFffedb9);
   static const darkAccentColor = Color(0xFFffedb9);
+  static const darkGreenColor = Colors.greenAccent;
 
   static ThemeData lightTheme = ThemeData(
     appBarTheme: AppBarTheme(
-        iconTheme: IconThemeData(
-          color: Colors.black,
-        ),
-        textTheme: TextTheme(
-          headline6: TextStyle(
-            color: Colors.black,
-          ),
-        )),
+      iconTheme: IconThemeData(
+        color: Colors.black,
+      ),
+    ),
     scaffoldBackgroundColor: lightBackgroundColor,
     cardTheme: CardTheme(
       color: lightCardColor,
@@ -61,20 +59,22 @@ class Style {
         color: Colors.black,
         fontWeight: FontWeight.bold,
       ),
+      bodyText2: TextStyle(
+        color: Colors.black,
+      ),
+      headline6: TextStyle(
+        color: Colors.black,
+      ),
     ),
     accentColor: lightAccentColor,
   );
 
   static ThemeData darkTheme = ThemeData(
     appBarTheme: AppBarTheme(
-        iconTheme: IconThemeData(
-          color: Colors.white,
-        ),
-        textTheme: TextTheme(
-          headline6: TextStyle(
-            color: Colors.white,
-          ),
-        )),
+      iconTheme: IconThemeData(
+        color: Colors.white,
+      ),
+    ),
     scaffoldBackgroundColor: darkBackgroundColor,
     cardTheme: CardTheme(
       color: darkCardColor,
@@ -97,6 +97,12 @@ class Style {
       bodyText1: TextStyle(
         color: Colors.white,
         fontWeight: FontWeight.bold,
+      ),
+      bodyText2: TextStyle(
+        color: Colors.white,
+      ),
+      headline6: TextStyle(
+        color: Colors.white,
       ),
     ),
     accentColor: darkAccentColor,
