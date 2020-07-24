@@ -42,19 +42,31 @@ class _ListAsessmentsState extends State<ListAsessments> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.only(top: 10, left: 10),
-              child: Row(
-                children: <Widget>[
-                  Text(
-                    "Evaluate your team for " + assessmentInfo.projectName,
-                    style: Theme.of(context).textTheme.bodyText2,
-                  ),
-                  //Spacer(),
-                  Flexible(
-                      child: Text(
-                          "You have until $endDay/$endMonth/$endYear to complete this assessment")),
-                ],
+              padding: EdgeInsets.only(left: 10),
+              child: Text(
+                "Evaluate your team for " + assessmentInfo.projectName,
+                style: Theme.of(context).textTheme.bodyText2.copyWith(
+                      fontSize: 18,
+                      height: 2,
+                    ),
               ),
+            ),
+            Divider(
+              height: 5,
+              color: Colors.transparent,
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 10),
+              child: Text(
+                "You have until $endDay/$endMonth/$endYear to complete this assessment",
+                style: Theme.of(context).textTheme.bodyText2.copyWith(
+                      fontSize: 18,
+                    ),
+              ),
+            ),
+            Divider(
+              height: 10,
+              color: Colors.transparent,
             ),
             Flexible(
               child: ListView.builder(
@@ -68,7 +80,14 @@ class _ListAsessmentsState extends State<ListAsessments> {
                         ),
                       ),
                       child: ListTile(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.pushNamed(context, "/evaluation",
+                              arguments: {
+                                'redirect': null,
+                                'peerAssessment': peerAssessments[index],
+                                'assessmentInfo': assessmentInfo,
+                              });
+                        },
                         title: Text(
                           peerAssessments[index].fname +
                               ' ' +

@@ -41,8 +41,6 @@ class _NoInternetState extends State<NoInternet> {
               if (value) {
                 timer.cancel();
                 if (arguments['redirect'] != null) {
-                  print(arguments);
-                  print(arguments['redirectArgs']);
                   Navigator.pushReplacementNamed(
                     context,
                     arguments['redirect'],
