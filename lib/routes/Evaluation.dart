@@ -123,12 +123,18 @@ class _EvaluationState extends State<Evaluation> {
           child: FloatingActionButton(
             onPressed: () async {
               await Handler.postAssessmentUpdate(peerAssessment);
-              final snackBar =
-                  SnackBar(content: Text('Assessment successfully submitted'));
-              scaffoldKey.currentState.showSnackBar(snackBar);
-              if (arguments['redirect'] == null) {
-                Navigator.pop(context);
-              }
+              final snackBar = SnackBar(
+                content: Text('Assessment successfully submitted'),
+                duration: Duration(seconds: 1),
+              );
+              scaffoldKey.currentState
+                  .showSnackBar(snackBar)
+                  .closed
+                  .then((value) {
+                if (arguments['redirect'] == null) {
+                  Navigator.pop(context);
+                }
+              });
               // else {
               //   Navigator.pushNamed(
               //     context,
