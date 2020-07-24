@@ -6,7 +6,7 @@ import 'package:peas/routes/NoInternet.dart';
 import 'package:provider/provider.dart';
 import 'package:peas/routes/HomePage.dart';
 import 'package:peas/routes/LoadData.dart';
-import 'package:peas/routes/List.dart';
+import 'package:peas/routes/listAssessments.dart';
 import 'package:peas/style.dart';
 
 void main() {
@@ -40,10 +40,11 @@ void main() {
               themeMode: appState.isDarkMode ? ThemeMode.dark : ThemeMode.light,
 
               //App routes
+              initialRoute: '/listAssessments',
               routes: {
                 '/': (context) => HomePage(),
                 '/loadData': (context) => LoadData(),
-                '/list': (context) => List(),
+                '/listAssessments': (context) => ListAsessments(),
                 '/evaluation': (context) => Evaluation(),
                 '/badAssessment': (context) => BadAssessment(),
                 '/noInternet': (context) => NoInternet(),

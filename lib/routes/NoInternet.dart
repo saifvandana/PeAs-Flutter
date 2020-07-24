@@ -10,10 +10,9 @@ import 'package:peas/style.dart';
 //Can be used before making any API calls
 
 class NoInternet extends StatefulWidget {
-  //TODO: Change URL to server
   static Future<bool> checkConnection() async {
     try {
-      var result = await InternetAddress.lookup('hgfdsfsdg44.com');
+      var result = await InternetAddress.lookup('google.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
         return true;
       }
@@ -41,7 +40,15 @@ class _NoInternetState extends State<NoInternet> {
         (Timer t) => NoInternet.checkConnection().then((value) {
               if (value) {
                 timer.cancel();
-                //TODO: What to do if internet connection exists
+                if (arguments['redirect'] != null) {
+                  print(arguments);
+                  print(arguments['redirectArgs']);
+                  Navigator.pushReplacementNamed(
+                    context,
+                    arguments['redirect'],
+                    arguments: arguments['redirectArgs'],
+                  );
+                }
               }
             }));
   }

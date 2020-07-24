@@ -1,0 +1,13 @@
+noInternet:
+    redirect:
+    redirectArgs:
+
+loadData:
+    url:
+    redirect:
+    action: start | backToStart | reload | submit
+
+list:
+    assessor
+    assessmentInfo
+    peerAssessments

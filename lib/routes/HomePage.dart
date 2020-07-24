@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:peas/AppStateNotifier.dart';
+import 'package:peas/handler.dart';
 import 'package:peas/routes/NoInternet.dart';
 import 'package:peas/pe_as_icons_icons.dart';
 import 'package:provider/provider.dart';
@@ -22,15 +23,17 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    /* 
-    TODO: Check internet connection on startup and push NoInternet with back, no redirect
-    */
+    NoInternet.checkConnection().then((value) {
+      if (value == false) {
+        Navigator.pushNamed(context, '/noInternet',
+            arguments: {'redirect': null});
+      }
+    });
   }
 
   //Form key to handle link input
   final formKey = GlobalKey<FormState>();
-  //TODO: Correct URL used to validate input URL
-  final String _trueURL = '';
+  final String _trueURL = Handler.baseAssessmentURL;
   //User's input URL
   String _url;
 
@@ -145,22 +148,14 @@ class _HomePageState extends State<HomePage> {
       //Updates the local url variable if valid
       formKey.currentState.save();
 
-      //Route to go to on submit
-      //The arguments passed here will determine what to load
-      NoInternet.checkConnection().then((value) {
-        if (!value) {
-          Navigator.pushNamed(context, "/noInternet", arguments: {
-            'nextRoute': '/loadData',
-            'goBack': false,
-            'url': _url
-          });
-        } else {
-          Navigator.pushNamed(context, "/loadData", arguments: {'url': _url});
-        }
-      });
       //Removes focus from the textformfield on return to home route
       //TODO: Clear input box on return to home route
       FocusScope.of(context).unfocus();
+
+      //Route to go to on submit
+      //The arguments passed here will determine what to load
+      Navigator.pushNamed(context, "/loadData",
+          arguments: {'url': _url, 'redirect': null, 'action': 'start'});
     }
   }
 }
