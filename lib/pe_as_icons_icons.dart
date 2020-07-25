@@ -11,7 +11,7 @@
 ///      fonts:
 ///       - asset: fonts/PeAsIcons.ttf
 ///
-/// 
+///
 /// * Iconic, Copyright (C) 2012 by P.J. Onori
 ///         Author:    P.J. Onori
 ///         License:   SIL (http://scripts.sil.org/OFL)
@@ -23,12 +23,18 @@
 ///
 import 'package:flutter/widgets.dart';
 
+/*
+Class defines some custom icons from fluttericon.com that are used in the app
+*/
+
 class PeAsIcons {
   PeAsIcons._();
 
   static const _kFontFam = 'PeAsIcons';
   static const _kFontPkg = null;
 
-  static const IconData right = IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData link = IconData(0xf0c1, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData right =
+      IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData link =
+      IconData(0xf0c1, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

@@ -7,20 +7,31 @@ import 'package:peas/rating_bar.dart';
 import 'package:peas/style.dart';
 import 'package:provider/provider.dart';
 
+/*
+This is the page where the rating and writing comments is done
+*/
+
 class Evaluation extends StatefulWidget {
   @override
   _EvaluationState createState() => _EvaluationState();
 }
 
 class _EvaluationState extends State<Evaluation> {
+  //will hold the arugments coming from the previous route
   Map arguments = {};
 
   @override
   Widget build(BuildContext context) {
+    //Getting the arguments from the previous route
     arguments = ModalRoute.of(context).settings.arguments;
+    //Pulling out some objects from the arguments
     PeerAssessment peerAssessment = arguments['peerAssessment'];
     AssessmentInfo assessmentInfo = arguments['assessmentInfo'];
+    //Counting the number of dimensions in the assessment based on the
+    //index of the first occurence of null
+    //The actual dimensions are assumed to be strings
     var numOfDimensions = assessmentInfo.dimensionNames.indexOf(null);
+    //need key to display the snackbar on assessment submit
     final scaffoldKey = GlobalKey<ScaffoldState>();
 
     return SafeArea(
@@ -28,7 +39,7 @@ class _EvaluationState extends State<Evaluation> {
         key: scaffoldKey,
         appBar: AppBar(
           title: Text(
-            'Evaluation',
+            'Assessment',
             style: Theme.of(context).textTheme.headline6.copyWith(
                   fontWeight: FontWeight.normal,
                   fontSize: 24,
@@ -42,6 +53,7 @@ class _EvaluationState extends State<Evaluation> {
           children: <Widget>[
             Padding(
               padding: EdgeInsets.only(left: 10),
+              //Display the peer's name and surname
               child: Text(
                 (peerAssessment.fname + ' ' + peerAssessment.lname),
                 style: Theme.of(context).textTheme.bodyText2.copyWith(
@@ -70,6 +82,7 @@ class _EvaluationState extends State<Evaluation> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
+                            //Display the name of the dimension
                             Text(
                               assessmentInfo.dimensionNames[index],
                               style: Theme.of(context)
@@ -128,6 +141,7 @@ class _EvaluationState extends State<Evaluation> {
           ],
         ),
         floatingActionButton: Container(
+          //TODO: button covers comments input when keyboard is open
           width: 100,
           height: 40,
           child: FloatingActionButton(
@@ -141,17 +155,23 @@ class _EvaluationState extends State<Evaluation> {
                   .showSnackBar(snackBar)
                   .closed
                   .then((value) {
+                //The evaluation page receives a redirect argument
+                //If the user chooses one teammate in the listAssessments screen
+                //the redirect is null
                 if (arguments['redirect'] == null) {
                   Navigator.pop(context);
                 }
+                //TODO: going through all assessment when clicking 'Begin assessment' on the
+                //listAssessments page
+                //If the user clicks the 'Begin assessment' button on the listAssessments page
+                //rather than selecting one teammate, they should automatically be taken through
+                //all the evaluation pages of all the teammates without having to click on them
+                //individually
+                //That is what the redirect is used for
+                //An array of all the evaluation pages along with their arguments
+                //could be passed in redirectArgs to cycle through all the pages before
+                //returning back to the listAssessments page
               });
-              // else {
-              //   Navigator.pushNamed(
-              //     context,
-              //     arguments['redirect'],
-              //     arguments: arguments['redirectArgs'],
-              //   );
-              // }
             },
             backgroundColor: Provider.of<AppStateNotifier>(context).isDarkMode
                 ? Style.darkGreenColor
@@ -162,6 +182,9 @@ class _EvaluationState extends State<Evaluation> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+                //If a redirect exists the button should display next
+                //instead of submit and then taken to the next teammate's
+                //evaluation page after submission
                 Text(
                   (arguments['redirect'] == null) ? 'Submit' : 'Next',
                   style: TextStyle(

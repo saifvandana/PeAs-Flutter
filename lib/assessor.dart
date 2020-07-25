@@ -1,3 +1,8 @@
+/*
+Models an assessor which contains all the data
+from the decrypted URL
+*/
+
 class Assessor {
   int id;
   String fname;
@@ -6,6 +11,8 @@ class Assessor {
   String team;
   int projectID;
 
+  //Constructor takes the decrypted URL and parses
+  //and assigns the instance variables
   Assessor(String data) {
     var split = data.split('\t');
     id = int.parse(split[0]);
@@ -16,6 +23,8 @@ class Assessor {
     projectID = int.parse(split[5]);
   }
 
+  //toString method for printing out the object
+  //for testing purposes
   @override
   String toString() {
     return "$id $fname $lname $email $team $projectID";

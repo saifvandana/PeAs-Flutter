@@ -6,20 +6,30 @@ import 'package:peas/peerAssessment.dart';
 import 'package:peas/style.dart';
 import 'package:provider/provider.dart';
 
+/*
+Displays the teammates and the assessment deadline
+Each teammate is displayed on a card which when clicked will take
+the user to the evaluation page for that teammate
+*/
+
 class ListAsessments extends StatefulWidget {
   @override
   _ListAsessmentsState createState() => _ListAsessmentsState();
 }
 
 class _ListAsessmentsState extends State<ListAsessments> {
+  //will hold the arguments coming from the previous route
   Map arguments = {};
 
   @override
   Widget build(BuildContext context) {
+    //Getting the arguments coming from the previous route
     arguments = ModalRoute.of(context).settings.arguments;
     Assessor assessor = arguments['assessor'];
     AssessmentInfo assessmentInfo = arguments['assessmentInfo'];
     List<PeerAssessment> peerAssessments = arguments['peerAssessments'];
+
+    //The deadline to show for the assessment
     var endDay = assessmentInfo.endTime.day.toString();
     var endMonth = assessmentInfo.endTime.month.toString();
     var endYear = assessmentInfo.endTime.year.toString();
@@ -44,6 +54,7 @@ class _ListAsessmentsState extends State<ListAsessments> {
             Padding(
               padding: EdgeInsets.only(left: 10),
               child: Text(
+                //Displaying the project name
                 "Evaluate your team for " + assessmentInfo.projectName,
                 style: Theme.of(context).textTheme.bodyText2.copyWith(
                       fontSize: 18,
@@ -80,6 +91,7 @@ class _ListAsessmentsState extends State<ListAsessments> {
                         ),
                       ),
                       child: ListTile(
+                        //Redirect to evaluation page for a particular teammate
                         onTap: () {
                           Navigator.pushNamed(context, "/evaluation",
                               arguments: {
@@ -97,6 +109,10 @@ class _ListAsessmentsState extends State<ListAsessments> {
                                 fontWeight: FontWeight.bold,
                               ),
                         ),
+                        //Checking if the assessment has been done or not
+                        //If all ratings are 0 and comments are empty then it is not done
+                        //else it is
+                        //the trailing icon to show is decided based on this
                         trailing: (peerAssessments[index]
                                     .dimensionRatings
                                     .every((element) => element == 0) &&
@@ -120,9 +136,15 @@ class _ListAsessmentsState extends State<ListAsessments> {
           width: 180,
           height: 40,
           child: FloatingActionButton(
+            //Currently not implemented
+            //TODO: Implement the begin assessment button
+            //When clicked it should automatically take the user through
+            //each evaluation page unlike clicking on an individual teammates card
+            //This should be done by passing the redirect route 'redirect' in the arugments
+            //and a redirectArgs array containing the peerAssessment and AssessmentInfo
+            //objects for each temmate
             onPressed: () {
-              Navigator.pushNamed(context, "/evaluation",
-                  arguments: {'url': "fdf", 'end': false});
+              //What should happen on pressing the begin assessment button
             },
             backgroundColor: Provider.of<AppStateNotifier>(context).isDarkMode
                 ? Style.darkGreenColor

@@ -5,7 +5,7 @@ noInternet:
 loadData:
     url:
     redirect:
-    action: start | backToStart | reload | submit
+    action: start | backToStart | reload
 
 list:
     assessor
