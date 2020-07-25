@@ -111,8 +111,18 @@ class _EvaluationState extends State<Evaluation> {
                 onChanged: (value) {
                   peerAssessment.comments = value;
                 },
-                maxLength: null,
-                decoration: InputDecoration(hintText: "Comments"),
+                minLines: 1,
+                maxLines: null,
+                keyboardType: TextInputType.multiline,
+                decoration: InputDecoration(
+                  hintText: "Comments",
+                  focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                    color: Provider.of<AppStateNotifier>(context).isDarkMode
+                        ? Style.darkAccentColor
+                        : Style.lightAccentColor,
+                  )),
+                ),
               ),
             ),
           ],

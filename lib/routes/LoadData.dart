@@ -40,9 +40,12 @@ class _LoadData extends State<LoadData> {
     } else {
       var assessor = Handler.getAssessor(arguments['url']);
       var assessmentInfo = await Handler.getAssessmentInfo(assessor);
-      var isValid = await Handler.checkAssessmentValidity(assessmentInfo);
-      if (isValid == false) {
-        Navigator.pushReplacementNamed(context, '/badAssessment');
+      var valid = await Handler.checkAssessmentValidity(assessmentInfo);
+      if (valid != 0) {
+        Navigator.pushReplacementNamed(context, '/badAssessment', arguments: {
+          'valid': valid,
+          'assessmentInfo': assessmentInfo,
+        });
       } else {
         var peerAssessments = await Handler.getPeerAssessments(assessor);
         Navigator.pushReplacementNamed(context, '/listAssessments', arguments: {

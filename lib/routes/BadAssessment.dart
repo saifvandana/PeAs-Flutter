@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:peas/assessmentInfo.dart';
 
 class BadAssessment extends StatefulWidget {
   @override
@@ -6,8 +7,19 @@ class BadAssessment extends StatefulWidget {
 }
 
 class _BadAssessmentState extends State<BadAssessment> {
+  Map arguments = {};
+
   @override
   Widget build(BuildContext context) {
+    arguments = ModalRoute.of(context).settings.arguments;
+    AssessmentInfo assessmentInfo = arguments['assessmentInfo'];
+    var endDay = assessmentInfo.endTime.day.toString();
+    var endMonth = assessmentInfo.endTime.month.toString();
+    var endYear = assessmentInfo.endTime.year.toString();
+    var startDay = assessmentInfo.startTime.day.toString();
+    var startMonth = assessmentInfo.startTime.month.toString();
+    var startYear = assessmentInfo.startTime.year.toString();
+
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
@@ -42,13 +54,17 @@ class _BadAssessmentState extends State<BadAssessment> {
                 child: Column(
                   children: [
                     Text(
-                        "The assessment period has either expired or not started yet.",
+                        (arguments['valid'] == -1)
+                            ? "The assessment period has not started yet."
+                            : "The assessment period has expired.",
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.bodyText1.copyWith(
                               fontSize: 20,
                             )),
                     Text(
-                      "Try again with a valid assessment.",
+                      (arguments['valid'] == -1)
+                          ? "It will begin on $startDay/$startMonth/$startYear, try again later."
+                          : "It expired on $endDay/$endMonth/$endYear.",
                       style: Theme.of(context)
                           .textTheme
                           .bodyText1

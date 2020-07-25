@@ -17,3 +17,7 @@ evaluation:
     redirectArgs:
     peerAssessment
     assessmentInfo
+
+badAssessment:
+    valid:
+    assessmentInfo:

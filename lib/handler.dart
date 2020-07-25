@@ -94,7 +94,8 @@ class Handler {
     return AssessmentInfo.fromJson(encoded);
   }
 
-  static Future<bool> checkAssessmentValidity(
+  //Returns 0 if valid, -1 if not started, 1 if expired
+  static Future<int> checkAssessmentValidity(
       AssessmentInfo assessmentInfo) async {
     var requestURL = _baseRequestURL + 'request=' + _requestNow;
     var response = await http.get(requestURL);
@@ -102,11 +103,13 @@ class Handler {
     var encoded = jsonDecode(decrypted);
     var now = DateTime.parse(encoded['NOW()']);
 
-    if (now.isAfter(assessmentInfo.startTime) &&
-        now.isBefore(assessmentInfo.endTime)) {
-      return true;
+    if (now.isBefore(assessmentInfo.startTime)) {
+      return -1;
+    } else if (now.isAfter(assessmentInfo.endTime)) {
+      return 1;
+    } else {
+      return 0;
     }
-    return false;
   }
 
   static Future<List<PeerAssessment>> getPeerAssessments(

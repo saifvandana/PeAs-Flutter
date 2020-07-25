@@ -97,9 +97,10 @@ class _ListAsessmentsState extends State<ListAsessments> {
                                 fontWeight: FontWeight.bold,
                               ),
                         ),
-                        trailing: peerAssessments[index]
-                                .dimensionRatings
-                                .every((element) => element == 0)
+                        trailing: (peerAssessments[index]
+                                    .dimensionRatings
+                                    .every((element) => element == 0) &&
+                                peerAssessments[index].comments == '')
                             ? Icon(
                                 Icons.assignment_late,
                                 color: Colors.red,
