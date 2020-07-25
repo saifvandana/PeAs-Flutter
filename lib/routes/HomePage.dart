@@ -20,6 +20,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  //The internet connection is checked on app startup
+  //If there is no connection, app will redirect to the noInternet page
+  //TODO: depending on how deep linking is implemented, internet checking should be
+  //added on app startup
   @override
   void initState() {
     super.initState();
@@ -33,21 +37,29 @@ class _HomePageState extends State<HomePage> {
 
   //Form key to handle link input
   final formKey = GlobalKey<FormState>();
+  //The correct assessment url to compare the user's input url to
+  //Taken from the Handler class, baseAssessmentURL
   final String _trueURL = Handler.baseAssessmentURL;
   //User's input URL
   String _url;
 
   @override
   Widget build(BuildContext context) {
-    //SafeArea to be independent of device display differences
+    //SafeArea ensures the widgets will not be covered by
+    //device specific display differences like notches
     return SafeArea(
-        //Scaffold necessary as Material ancestor to Switch
+        //A Scaffold is necessary as a Material ancestor to Switch
         child: Scaffold(
       body: Column(
         children: [
           //TODO: Fix scaling and alignment of switch
+          //Currently the switch has to be scaled down to fit properly
+          //This leaves some space on the right side of the switch, not intentional
           //or find alternative widget
           //TODO: Fix hold and slide but no theme change issue
+          //Currently the switch works if it is tapped on
+          //but if a user attempts to slide the switch, the graphic moves
+          //but the theme will not be updated until the next switch tap
           Container(
             alignment: Alignment.topRight,
             padding: EdgeInsets.only(top: 10),
@@ -58,6 +70,7 @@ class _HomePageState extends State<HomePage> {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 10, right: 10),
                     child: Image.asset(
+                      //Selecting which logo to display based on the theme
                       Provider.of<AppStateNotifier>(context).isDarkMode
                           ? Style.darkLogo
                           : Style.lightLogo,
@@ -65,6 +78,9 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 Spacer(),
+                //By default the dayNight switch is too large
+                //Had to be scaled down
+                //Not ideal solution as marked above
                 Transform.scale(
                   scale: 0.4,
                   child: DayNightSwitch(
@@ -104,13 +120,20 @@ class _HomePageState extends State<HomePage> {
                         child: TextFormField(
                           //subtitle1 is used for the URL input box text
                           style: Theme.of(context).textTheme.subtitle1,
+                          //Autocorrect being false let's the user's keyboard
+                          //know not to attempt to correct the entered url
                           autocorrect: false,
                           autofocus: false,
                           autovalidate: false,
+                          //This notifies the phone to bring up a keyboard which
+                          //makes entering links easier
+                          //such as having the / symbol ready
                           keyboardType: TextInputType.url,
+                          //Does not allow the user to type in multiple lines
                           maxLines: 1,
                           decoration: InputDecoration(
                             prefixIcon: Icon(
+                              //Custom icon defined in the pe_as_icons_icons.dart file
                               PeAsIcons.link,
                               //Force the use of iconTheme color
                               color: Theme.of(context).iconTheme.color,
@@ -119,15 +142,21 @@ class _HomePageState extends State<HomePage> {
                             border: InputBorder.none,
                           ),
                           //To validate the URL before trying to fetch
+                          //TODO: fix styling of invalid link message
+                          //The colors for the error message in dark and light theme
+                          //need to be set
+                          //Currently, the error message shows up outside the input box
                           validator: (input) => !input.startsWith(_trueURL)
                               ? "Not a valid evaluation link!"
                               : null,
+                          //onSaved is called after the input in validated
                           onSaved: (input) {
                             _url = input;
                           },
                         ),
                       ),
                       //Arrow button to submit the entered URL
+                      //Calls the method _submit when the button is clicked
                       IconButton(
                           icon: Icon(PeAsIcons.right), onPressed: _submit),
                     ],
@@ -144,16 +173,22 @@ class _HomePageState extends State<HomePage> {
   //Submits input URL and goes to next step if valid
   void _submit() {
     //Will check the input fields with validation condition
+    //defined in the validator
     if (formKey.currentState.validate()) {
       //Updates the local url variable if valid
       formKey.currentState.save();
 
       //Removes focus from the textformfield on return to home route
       //TODO: Clear input box on return to home route
+      //Currently, after finishing an assessment and coming back to the homepage
+      //the old url still shows in the input box, needs to be cleared
       FocusScope.of(context).unfocus();
 
       //Route to go to on submit
       //The arguments passed here will determine what to load
+      //Since the url is just entered, the data needs to be loaded from the beginning
+      //Pushes loadData and passes it the url along with the action: start
+      //start tells loadData that all the data needs to be loaded from the beginning
       Navigator.pushNamed(context, "/loadData",
           arguments: {'url': _url, 'redirect': null, 'action': 'start'});
     }

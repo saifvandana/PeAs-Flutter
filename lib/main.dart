@@ -8,11 +8,25 @@ import 'package:peas/routes/HomePage.dart';
 import 'package:peas/routes/LoadData.dart';
 import 'package:peas/routes/listAssessments.dart';
 import 'package:peas/style.dart';
+/*
+The app is run from the main method in this file
+*/
+
+//TODO: app icons could be added, you can use a dev package like:
+//https://pub.dev/packages/flutter_launcher_icons
+//or something similar to simplify the process
+
+//TODO: test the app on an apple device, there could be system specific problems
+//not guaranteed to run the same as on android
 
 void main() {
   //Loading saved preferences before starting app
+  //Used to have the saved theme available before rendering the page
   WidgetsFlutterBinding.ensureInitialized();
+  //Passing false into the constructor so the app renders in light mode by default
+  //until the saved preferences are fetched
   var appState = AppStateNotifier(false);
+
   runApp(
     //Change notifier to apply app-wide changes to the theme
     ChangeNotifierProvider<AppStateNotifier>(
@@ -40,6 +54,7 @@ void main() {
               themeMode: appState.isDarkMode ? ThemeMode.dark : ThemeMode.light,
 
               //App routes
+              //Defines all the pages that can be navigated to in the app
               routes: {
                 '/': (context) => HomePage(),
                 '/loadData': (context) => LoadData(),

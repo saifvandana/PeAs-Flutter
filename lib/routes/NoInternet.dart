@@ -10,8 +10,11 @@ import 'package:peas/style.dart';
 //Can be used before making any API calls
 
 class NoInternet extends StatefulWidget {
+  //checks the internet connection
+  //returns a boolean future
   static Future<bool> checkConnection() async {
     try {
+      //currently the lookup address is google, can be changed
       var result = await InternetAddress.lookup('google.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
         return true;
@@ -40,6 +43,13 @@ class _NoInternetState extends State<NoInternet> {
         (Timer t) => NoInternet.checkConnection().then((value) {
               if (value) {
                 timer.cancel();
+                //Once the connection is restored user will be redirected to
+                //the redirect page and that page will be passed the redirectArgs
+                //as well
+                //For example, if the internet was lost on the loadData page,
+                //the user will be sent to the noInternet page and once the connection
+                //comes back, they will be redirected back to the loading page to continue
+                //loading the data and it will continue normally from there again
                 if (arguments['redirect'] != null) {
                   Navigator.pushReplacementNamed(
                     context,
@@ -60,8 +70,8 @@ class _NoInternetState extends State<NoInternet> {
         child: Scaffold(
       body: WillPopScope(
         onWillPop: () {
-          //TODO: What to do on back pressed
-          //Currently no way to go back
+          //There is no way to go to any other page from the no internet page
+          //until internet is restored and there is a redirect page
         },
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -110,7 +120,9 @@ class _NoInternetState extends State<NoInternet> {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 onPressed: () {
-                  //TODO: What to do on press
+                  //Currently the try again button doesn't do anything
+                  //Since the app is already trying to reconnect every few seconds anyway
+                  //Right now, it's just a stress relieving button
                 },
                 child: Text(
                   "Try again",

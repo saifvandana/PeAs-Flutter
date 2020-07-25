@@ -5,7 +5,7 @@ noInternet:
 loadData:
     url:
     redirect:
-    action: start | backToStart | reload | submit
+    action: start | backToStart | reload
 
 list:
     assessor
@@ -17,3 +17,7 @@ evaluation:
     redirectArgs:
     peerAssessment
     assessmentInfo
+
+badAssessment:
+    valid:
+    assessmentInfo:

@@ -4,6 +4,11 @@ import 'package:flutter/material.dart';
 
 typedef void RatingCallback(double rating);
 
+/*
+This widget was taken from a library and modified for the purposes of this project
+Icons and colors are hard coded into this class
+*/
+
 class RatingBar extends StatefulWidget {
   RatingBar({
     Key key,
