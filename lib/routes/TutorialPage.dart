@@ -17,7 +17,7 @@ class FirstPage extends StatelessWidget {
             SizedBox(height: 50),
             RichText(
               text: TextSpan(
-              text: 'What is this App for? ',
+              text: 'What is this App for?. ',
               style: TextStyle(color: Colors.black.withOpacity(1.0), fontWeight: FontWeight.bold, fontSize: 33),
               ),
                textAlign: TextAlign.center,
@@ -31,27 +31,6 @@ class FirstPage extends StatelessWidget {
              textAlign: TextAlign.center,
             ),
             SizedBox(height: 25),
-            RaisedButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            textColor: Colors.white,
-            padding: const EdgeInsets.all(0.0),
-            child: Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: <Color>[
-                    Color(0xFF0D47A2),
-                    Color(0xFF1976D2),
-                    Color(0xFF42A5F5),
-                  ],
-                ),
-              ),
-              padding: const EdgeInsets.all(20.0),
-              child:
-                  const Text('Back', style: TextStyle(fontSize: 20)),
-            ),
-            ),
             FirstButton(),
           ],
         ),
@@ -129,7 +108,7 @@ class NextPage extends StatelessWidget {
             SizedBox(height: 20),
             RichText(
               text: TextSpan(
-              text: 'Application will be available to use once you receive the necessary link from your instructor. \n Copy and paste the link in the provided link slot on the app. \nAfter that, you can start evaluating your peers.\n Evaluations can be done prior to the deadline',
+              text: 'Application will be available to use once you receive the necessary link from your instructor. \n Copy and paste the link in the provided link slot on the app. \nAfter that, you can start evaluating your peers.\n Evaluations can be done between start and end dates',
               style: TextStyle(color: Colors.black.withOpacity(1.0),fontSize: 21),
             ),
              textAlign: TextAlign.center,
