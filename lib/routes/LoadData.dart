@@ -78,7 +78,7 @@ class _LoadData extends State<LoadData> {
       //if an assessment is not valid, user will be redirected to the badAssessment page
       //along with the output of the checkAssessmentValidity function
       //which will be used to determine the error message to display
-      if (valid == 0) {
+      if (valid != 0) {
         Navigator.pushReplacementNamed(context, '/badAssessment', arguments: {
           'valid': valid,
           'assessmentInfo': assessmentInfo,
