@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:peas/AppStateNotifier.dart';
 import 'package:peas/handler.dart';
 import 'package:peas/routes/NoInternet.dart';
+import 'package:peas/routes/TutorialPage.dart';
 import 'package:peas/pe_as_icons_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:peas/style.dart';
@@ -138,7 +139,7 @@ class _HomePageState extends State<HomePage> {
                               //Force the use of iconTheme color
                               color: Theme.of(context).iconTheme.color,
                             ),
-                            hintText: "Paste the evaluation link here...",
+                            hintText: "Paste the evaluation links here..",
                             border: InputBorder.none,
                           ),
                           //To validate the URL before trying to fetch
@@ -165,6 +166,8 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
+          SizedBox(height: 20),
+          TutorialButton(),
         ],
       ),
     ));
@@ -192,5 +195,38 @@ class _HomePageState extends State<HomePage> {
       Navigator.pushNamed(context, "/loadData",
           arguments: {'url': _url, 'redirect': null, 'action': 'start'});
     }
+  }
+
+  
+}
+
+class TutorialButton extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: RaisedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => FirstPage()),
+                  );
+              },
+              textColor: Colors.white,
+              padding: const EdgeInsets.all(0.5),
+              child: Container(
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: <Color>[
+                      Color(0xFF0D47A2),
+                      Color(0xFF1976D2),
+                      Color(0xFF42A5F5),
+                    ],
+                  ),
+                ),
+                padding: const EdgeInsets.all(21.0),
+                child: const Text('Peer Assessment', style: TextStyle(fontSize: 20)),
+              ),
+            ),
+    );
   }
 }
