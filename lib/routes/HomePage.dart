@@ -50,127 +50,138 @@ class _HomePageState extends State<HomePage> {
     //device specific display differences like notches
     return SafeArea(
         //A Scaffold is necessary as a Material ancestor to Switch
-        child: Scaffold(
-      body: Column(
-        children: [
-          //TODO: Fix scaling and alignment of switch
-          //Currently the switch has to be scaled down to fit properly
-          //This leaves some space on the right side of the switch, not intentional
-          //or find alternative widget
-          //TODO: Fix hold and slide but no theme change issue
-          //Currently the switch works if it is tapped on
-          //but if a user attempts to slide the switch, the graphic moves
-          //but the theme will not be updated until the next switch tap
-          Container(
-            alignment: Alignment.topRight,
-            padding: EdgeInsets.only(top: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 10, right: 10),
-                    child: Image.asset(
-                      //Selecting which logo to display based on the theme
-                      Provider.of<AppStateNotifier>(context).isDarkMode
-                          ? Style.darkLogo
-                          : Style.lightLogo,
+      child: Scaffold(
+        body: Column(
+          children: [
+            //TODO: Fix scaling and alignment of switch
+            //Currently the switch has to be scaled down to fit properly
+            //This leaves some space on the right side of the switch, not intentional
+            //or find alternative widget
+            //TODO: Fix hold and slide but no theme change issue
+            //Currently the switch works if it is tapped on
+            //but if a user attempts to slide the switch, the graphic moves
+            //but the theme will not be updated until the next switch tap
+            Container(
+              alignment: Alignment.topRight,
+              padding: EdgeInsets.only(top: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      child: Image.asset(
+                        //Selecting which logo to display based on the theme
+                        Provider.of<AppStateNotifier>(context).isDarkMode
+                            ? Style.darkLogo
+                            : Style.lightLogo,
+                      ),
                     ),
                   ),
-                ),
-                Spacer(),
-                //By default the dayNight switch is too large
-                //Had to be scaled down
-                //Not ideal solution as marked above
-                Transform.scale(
-                  scale: 0.4,
-                  child: DayNightSwitch(
-                    value: Provider.of<AppStateNotifier>(context).isDarkMode,
-                    moonImage: AssetImage(Style.darkMoonImage),
-                    sunImage: AssetImage(Style.lightSunImage),
-                    dayColor: Style.lightDayColor,
-                    nightColor: Style.darkNightColor,
-                    onChanged: (boolVal) {
-                      Provider.of<AppStateNotifier>(context, listen: false)
-                          .updateTheme(boolVal);
-                    },
+                  Spacer(),
+                  //By default the dayNight switch is too large
+                  //Had to be scaled down
+                  //Not ideal solution as marked above
+                  Transform.scale(
+                    scale: 0.4,
+                    child: DayNightSwitch(
+                      value: Provider.of<AppStateNotifier>(context).isDarkMode,
+                      moonImage: AssetImage(Style.darkMoonImage),
+                      sunImage: AssetImage(Style.lightSunImage),
+                      dayColor: Style.lightDayColor,
+                      nightColor: Style.darkNightColor,
+                      onChanged: (boolVal) {
+                        Provider.of<AppStateNotifier>(context, listen: false)
+                            .updateTheme(boolVal);
+                      },
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          Spacer(),
-          Flexible(
-            fit: FlexFit.loose,
-            child: Container(
-              padding: EdgeInsets.only(left: 10, right: 10),
-              height: 85,
-              child: Card(
-                elevation: 3,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(30),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(50.0),//const EdgeInsets.only(left: 20, right: 20),
+                  child: Image(
+                      image: AssetImage('assets/logo.png'),
+                      fit: BoxFit.fitHeight,
+                      alignment: Alignment.center,
                   ),
-                ),
-                child: Form(
-                  key: formKey,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: TextFormField(
-                          //subtitle1 is used for the URL input box text
-                          style: Theme.of(context).textTheme.subtitle1,
-                          //Autocorrect being false let's the user's keyboard
-                          //know not to attempt to correct the entered url
-                          autocorrect: false,
-                          autofocus: false,
-                          autovalidate: false,
-                          //This notifies the phone to bring up a keyboard which
-                          //makes entering links easier
-                          //such as having the / symbol ready
-                          keyboardType: TextInputType.url,
-                          //Does not allow the user to type in multiple lines
-                          maxLines: 1,
-                          decoration: InputDecoration(
-                            prefixIcon: Icon(
-                              //Custom icon defined in the pe_as_icons_icons.dart file
-                              PeAsIcons.link,
-                              //Force the use of iconTheme color
-                              color: Theme.of(context).iconTheme.color,
+               ),
+            ),
+            SizedBox(height: 20),
+            Flexible(
+              fit: FlexFit.loose,
+              child: Container(
+                padding: EdgeInsets.only(left: 10, right: 10),
+                height: 85,
+                child: Card(
+                  elevation: 3,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(30),
+                    ),
+                  ),
+                  child: Form(
+                    key: formKey,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: TextFormField(
+                            //subtitle1 is used for the URL input box text
+                            style: Theme.of(context).textTheme.subtitle1,
+                            //Autocorrect being false let's the user's keyboard
+                            //know not to attempt to correct the entered url
+                            autocorrect: false,
+                            autofocus: false,
+                            autovalidate: false,
+                            //This notifies the phone to bring up a keyboard which
+                            //makes entering links easier
+                            //such as having the / symbol ready
+                            keyboardType: TextInputType.url,
+                            //Does not allow the user to type in multiple lines
+                            maxLines: 1,
+                            decoration: InputDecoration(
+                              prefixIcon: Icon(
+                                //Custom icon defined in the pe_as_icons_icons.dart file
+                                PeAsIcons.link,
+                                //Force the use of iconTheme color
+                                color: Theme.of(context).iconTheme.color,
+                              ),
+                              hintText: "Paste the evaluation links here..",
+                              border: InputBorder.none,
                             ),
-                            hintText: "Paste the evaluation links here..",
-                            border: InputBorder.none,
+                            //To validate the URL before trying to fetch
+                            //TODO: fix styling of invalid link message
+                            //The colors for the error message in dark and light theme
+                            //need to be set
+                            //Currently, the error message shows up outside the input box
+                            validator: (input) => !input.startsWith(_trueURL)
+                                ? "Not a valid evaluation link!"
+                                : null,
+                            //onSaved is called after the input in validated
+                            onSaved: (input) {
+                              _url = input;
+                            },
                           ),
-                          //To validate the URL before trying to fetch
-                          //TODO: fix styling of invalid link message
-                          //The colors for the error message in dark and light theme
-                          //need to be set
-                          //Currently, the error message shows up outside the input box
-                          validator: (input) => !input.startsWith(_trueURL)
-                              ? "Not a valid evaluation link!"
-                              : null,
-                          //onSaved is called after the input in validated
-                          onSaved: (input) {
-                            _url = input;
-                          },
                         ),
-                      ),
-                      //Arrow button to submit the entered URL
-                      //Calls the method _submit when the button is clicked
-                      IconButton(
-                          icon: Icon(PeAsIcons.right), onPressed: _submit),
-                    ],
+                        //Arrow button to submit the entered URL
+                        //Calls the method _submit when the button is clicked
+                        IconButton(
+                            icon: Icon(PeAsIcons.right), onPressed: _submit),
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          SizedBox(height: 20),
-          TutorialButton(),
-        ],
-      ),
-    ));
+            SizedBox(height: 40),
+            TutorialButton(),
+          ],
+        ),
+      )
+    );
   }
 
   //Submits input URL and goes to next step if valid
@@ -224,7 +235,7 @@ class TutorialButton extends StatelessWidget{
                   ),
                 ),
                 padding: const EdgeInsets.all(21.0),
-                child: const Text('Peer Assessment', style: TextStyle(fontSize: 20)),
+                child: const Text('Peer Assessment System', style: TextStyle(fontSize: 20)),
               ),
             ),
     );
