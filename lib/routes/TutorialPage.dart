@@ -104,34 +104,6 @@ class FirstButton extends StatelessWidget{
   }
 }
 
-/*
-class HomeButton extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: RaisedButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              textColor: Colors.white,
-              padding: const EdgeInsets.all(0.5),
-              child: Container(
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: <Color>[
-                      Color(0xFF0D47A2),
-                      Color(0xFF1976D2),
-                      Color(0xFF42A5F5),
-                    ],
-                  ),
-                ),
-                padding: const EdgeInsets.all(21.0),
-                child: const Text('Back', style: TextStyle(fontSize: 20)),
-              ),
-            ),
-    );
-  }
-}*/
 
 class NextPage extends StatelessWidget {
   //Every UI components are widgets
