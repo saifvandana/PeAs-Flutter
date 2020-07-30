@@ -6,6 +6,8 @@ import 'package:peas/routes/NoInternet.dart';
 import 'package:provider/provider.dart';
 import 'package:peas/routes/HomePage.dart';
 import 'package:peas/routes/LoadData.dart';
+import 'package:peas/routes/TutorialPage.dart';
+import 'package:peas/routes/NextTutorialPage.dart';
 import 'package:peas/routes/listAssessments.dart';
 import 'package:peas/style.dart';
 /*
@@ -62,6 +64,8 @@ void main() {
                 '/evaluation': (context) => Evaluation(),
                 '/badAssessment': (context) => BadAssessment(),
                 '/noInternet': (context) => NoInternet(),
+                '/firstPage': (context) => FirstPage(),
+                '/nextPage' : (context) => NextPage(),
               },
             ));
       }),

@@ -3,11 +3,13 @@ import 'package:peas/AppStateNotifier.dart';
 import 'package:peas/handler.dart';
 import 'package:peas/routes/NoInternet.dart';
 import 'package:peas/routes/TutorialPage.dart';
+import 'package:peas/routes/NextTutorialPage.dart';
 import 'package:peas/pe_as_icons_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:peas/style.dart';
 import 'package:day_night_switch/day_night_switch.dart';
-
+import 'package:peas/poc.dart';
+import 'package:peas/bloc.dart';
 /*
   Main page of the app
   Displays logo, theme switch, and URL input box
@@ -42,14 +44,16 @@ class _HomePageState extends State<HomePage> {
   //Taken from the Handler class, baseAssessmentURL
   final String _trueURL = Handler.baseAssessmentURL;
   //User's input URL
-  String _url;
 
   @override
   Widget build(BuildContext context) {
     //SafeArea ensures the widgets will not be covered by
     //device specific display differences like notches
+    DeepLinkBloc _bloc = DeepLinkBloc();
+
     return SafeArea(
-        //A Scaffold is necessary as a Material ancestor to Switch
+      //A Scaffold is necessary as a Material ancestor to Switch
+
       child: Scaffold(
         body: Column(
           children: [
@@ -100,16 +104,15 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(50.0),//const EdgeInsets.only(left: 20, right: 20),
-                  child: Image(
-                      image: AssetImage('assets/logo.png'),
-                      fit: BoxFit.fitHeight,
+              //padding: const EdgeInsets.all(180.0),
+              child: Image(
+                      image: AssetImage('assets/bilkentlogo.png'),
+                      fit: BoxFit.scaleDown,
                       alignment: Alignment.center,
                   ),
                ),
-            ),
-            SizedBox(height: 20),
+            SizedBox(height: 100),
+            /*
             Flexible(
               fit: FlexFit.loose,
               child: Container(
@@ -175,16 +178,22 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-            ),
-            SizedBox(height: 40),
+            ),*/
             TutorialButton(),
+            SizedBox(height: 50),
+            Provider<DeepLinkBloc>(
+              create: (context) => _bloc,
+                dispose: (context, bloc) => bloc.dispose(),
+                child: PocWidget()
+            ),
+            SizedBox(height: 200),
           ],
         ),
       )
     );
   }
 
-  //Submits input URL and goes to next step if valid
+  /*Submits input URL and goes to next step if valid
   void _submit() {
     //Will check the input fields with validation condition
     //defined in the validator
@@ -206,7 +215,7 @@ class _HomePageState extends State<HomePage> {
       Navigator.pushNamed(context, "/loadData",
           arguments: {'url': _url, 'redirect': null, 'action': 'start'});
     }
-  }
+  }*/
 
   
 }
@@ -222,6 +231,33 @@ class TutorialButton extends StatelessWidget{
                   MaterialPageRoute(builder: (context) => FirstPage()),
                   );
               },
+              textColor: Colors.black,
+              padding: const EdgeInsets.all(0.5),
+              child: Container(
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Colors.blue,Colors.redAccent, Colors.white10],
+                  ),
+                ),
+                padding: const EdgeInsets.all(21.0),
+                child: const Text('Peer Assessment System', style: TextStyle(fontSize: 20)),
+              ),
+            ),
+    );
+  }
+}
+
+class FirstButton extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: RaisedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => NextPage()),
+                  );
+              },
               textColor: Colors.white,
               padding: const EdgeInsets.all(0.5),
               child: Container(
@@ -235,7 +271,7 @@ class TutorialButton extends StatelessWidget{
                   ),
                 ),
                 padding: const EdgeInsets.all(21.0),
-                child: const Text('Peer Assessment System', style: TextStyle(fontSize: 20)),
+                child: const Text('Next', style: TextStyle(fontSize: 20)),
               ),
             ),
     );
