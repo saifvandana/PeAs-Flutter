@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:peas/style.dart';
 import 'package:peas/AppStateNotifier.dart';
+import 'package:provider/provider.dart';
 
 var appState = AppStateNotifier(true);
 
@@ -9,7 +10,7 @@ class NextPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget titleSection = new Container(
-      padding: const EdgeInsets.all(110.0),
+      padding: const EdgeInsets.all(10.0),
       child: new Column(
           children: <Widget>[
             Image(
@@ -21,7 +22,10 @@ class NextPage extends StatelessWidget {
             RichText(
               text: TextSpan(
               text: 'How to use it? ',
-              style: TextStyle(color: Colors.blueAccent, fontWeight: FontWeight.bold, fontSize: 33),
+              style: Theme.of(context).textTheme.bodyText2.copyWith(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                    ),
               ),
                textAlign: TextAlign.center,
             ),
@@ -29,25 +33,23 @@ class NextPage extends StatelessWidget {
             RichText(
               text: TextSpan(
               text: 'Application will be available to use once you receive the link from your instructor. \n Click on the link to open the app. \nAfter that, you can start evaluating your peers.\n Evaluations can be done between start and end dates',
-              style: TextStyle(color: Colors.blueGrey, fontSize: 21),
+              style: Theme.of(context).textTheme.bodyText2.copyWith(
+                      fontSize: 16,
+                    ),
             ),
              textAlign: TextAlign.center,
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 29),
             RaisedButton(
             onPressed: () {
               Navigator.pop(context);
             },
-            textColor: Colors.white,
+            textColor: Colors.black,
             padding: const EdgeInsets.all(0.0),
             child: Container(
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
-                  colors: <Color>[
-                    Color(0xFF0D47A2),
-                    Color(0xFF1976D2),
-                    Color(0xFF42A5F5),
-                  ],
+                  colors: [Colors.blue,Colors.redAccent, Colors.white10],
                 ),
               ),
               padding: const EdgeInsets.all(20.0),
@@ -58,26 +60,25 @@ class NextPage extends StatelessWidget {
           ],
         ),
     );
+
     //build function returns a "Widget"
-    return new MaterialApp(
-      debugShowCheckedModeBanner: false,
-
-      theme: Style.lightTheme, darkTheme: Style.darkTheme,
-
-      //Sets the app theme based on saved user preferences
-      themeMode: appState.isDarkMode ? ThemeMode.dark : ThemeMode.light,
-      
-      home: new Scaffold(
-        
+    return SafeArea(
+      child: Scaffold(
         appBar: new AppBar(
-          title: new Text('Peer Assessment'),
+          title: Text(
+            'Peer Assessment',
+            style: Theme.of(context).textTheme.headline6.copyWith(
+                  fontWeight: FontWeight.normal,
+                  fontSize: 24,
+                ),
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
         ),
-        
         body: new ListView(
-          
           children: <Widget>[
-            titleSection
-          ],
+            titleSection,
+          ],   
         )
       )
     );
