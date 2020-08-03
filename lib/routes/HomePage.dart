@@ -104,15 +104,14 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             Expanded(
-              //padding: const EdgeInsets.all(180.0),
               child: Image(
                       image: AssetImage('assets/bilkentlogo.png'),
-                      fit: BoxFit.scaleDown,
+                      fit: BoxFit.fitHeight,
                       alignment: Alignment.center,
                   ),
                ),
-            SizedBox(height: 100),
-            /*
+            SizedBox(height: 50),
+            
             Flexible(
               fit: FlexFit.loose,
               child: Container(
@@ -165,7 +164,7 @@ class _HomePageState extends State<HomePage> {
                                 : null,
                             //onSaved is called after the input in validated
                             onSaved: (input) {
-                              _url = input;
+                              url = input;
                             },
                           ),
                         ),
@@ -178,22 +177,23 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-            ),*/
+            ),
+            SizedBox(height: 20),
             TutorialButton(),
-            SizedBox(height: 50),
+            SizedBox(height: 20),
             Provider<DeepLinkBloc>(
               create: (context) => _bloc,
                 dispose: (context, bloc) => bloc.dispose(),
                 child: PocWidget()
             ),
-            SizedBox(height: 200),
+            //SizedBox(height: 40),
           ],
         ),
       )
     );
   }
 
-  /*Submits input URL and goes to next step if valid
+  //Submits input URL and goes to next step if valid
   void _submit() {
     //Will check the input fields with validation condition
     //defined in the validator
@@ -213,9 +213,9 @@ class _HomePageState extends State<HomePage> {
       //Pushes loadData and passes it the url along with the action: start
       //start tells loadData that all the data needs to be loaded from the beginning
       Navigator.pushNamed(context, "/loadData",
-          arguments: {'url': _url, 'redirect': null, 'action': 'start'});
+          arguments: {'url': url, 'redirect': null, 'action': 'start'});
     }
-  }*/
+  }
 
   
 }
@@ -258,16 +258,12 @@ class FirstButton extends StatelessWidget{
                   MaterialPageRoute(builder: (context) => NextPage()),
                   );
               },
-              textColor: Colors.white,
+              textColor: Colors.black,
               padding: const EdgeInsets.all(0.5),
               child: Container(
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
-                    colors: <Color>[
-                      Color(0xFF0D47A2),
-                      Color(0xFF1976D2),
-                      Color(0xFF42A5F5),
-                    ],
+                    colors: [Colors.blue,Colors.redAccent, Colors.white10],
                   ),
                 ),
                 padding: const EdgeInsets.all(21.0),

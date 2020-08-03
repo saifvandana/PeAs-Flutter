@@ -1,25 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:peas/routes/HomePage.dart';
-
+import 'package:peas/AppStateNotifier.dart';
+import 'package:peas/style.dart';
+import 'package:provider/provider.dart';
 
 class FirstPage extends StatelessWidget {
   //Every UI components are widgets
   @override
   Widget build(BuildContext context) {
     Widget titleSection = new Container(
-      padding: const EdgeInsets.all(130.0),
+      padding: EdgeInsets.only(top: 0),
       child: new Column(
           children: <Widget>[
             Image(
                   image: AssetImage('assets/bilkentlogo.png'),
-                  fit: BoxFit.fitHeight,
-                  alignment: Alignment.center,
+                  fit: BoxFit.scaleDown,
+                  alignment: Alignment.topCenter,
               ),
             SizedBox(height: 50),
             RichText(
               text: TextSpan(
               text: 'What is this App for?',
-              style: TextStyle(color: Colors.blueAccent, fontWeight: FontWeight.bold, fontSize: 33),
+              style: Theme.of(context).textTheme.bodyText2.copyWith(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                    ),
               ),
                textAlign: TextAlign.center,
             ),
@@ -27,11 +32,13 @@ class FirstPage extends StatelessWidget {
             RichText(
               text: TextSpan(
               text: 'The Peer Assessment System (PeAs) is exclusively used for peer assessment in project groups. As a requirement for ABET accreditation, Bilkent University students are to evaluate the performances of their project partners via this system ',
-              style: TextStyle(color: Colors.blueGrey, fontSize: 21),
+              style: Theme.of(context).textTheme.bodyText2.copyWith(
+                      fontSize: 16,
+                    ),
             ),
              textAlign: TextAlign.center,
             ),
-            SizedBox(height: 25),
+            SizedBox(height: 35),
             FirstButton(),
           ],
         ),
@@ -41,7 +48,15 @@ class FirstPage extends StatelessWidget {
     return SafeArea(
       child: new Scaffold(
         appBar: new AppBar(
-          title: new Text('Peer Assessment'),
+          title: Text(
+            'Peer Assessment',
+            style: Theme.of(context).textTheme.headline6.copyWith(
+                  fontWeight: FontWeight.normal,
+                  fontSize: 24,
+                ),
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
         ),
         body: new ListView(
           children: <Widget>[
